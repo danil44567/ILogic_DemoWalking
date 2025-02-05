@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,29 +15,29 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
 
-        // Блокируем курсор в центре
+        // Р‘Р»РѕРєРёСЂСѓРµРј РєСѓСЂСЃРѕСЂ РІ С†РµРЅС‚СЂРµ
         Cursor.lockState = CursorLockMode.Locked;
 
-        // Получаем Rigidbody с нашего объекта
+        // РџРѕР»СѓС‡Р°РµРј Rigidbody СЃ РЅР°С€РµРіРѕ РѕР±СЉРµРєС‚Р°
         rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        // Получем горионтальное движение мыши
+        // РџРѕР»СѓС‡РµРј РіРѕСЂРёРѕРЅС‚Р°Р»СЊРЅРѕРµ РґРІРёР¶РµРЅРёРµ РјС‹С€Рё
         float mouseX = Input.GetAxis("Mouse X");
 
-        // Получаем текущий поворот в трёхмерных координатах
+        // РџРѕР»СѓС‡Р°РµРј С‚РµРєСѓС‰РёР№ РїРѕРІРѕСЂРѕС‚ РІ С‚СЂС‘С…РјРµСЂРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚Р°С…
         Vector3 rotation = transform.rotation.eulerAngles;
 
-        // Поворачивам ось Y 
+        // РџРѕРІРѕСЂР°С‡РёРІР°Рј РѕСЃСЊ Y 
         rotation.y += mouseX * rotationSpeed;
 
-        // Присваем повёрнутый вектор преобразуя его в четырёхмерный
+        // РџСЂРёСЃРІР°РµРј РїРѕРІС‘СЂРЅСѓС‚С‹Р№ РІРµРєС‚РѕСЂ РїСЂРµРѕР±СЂР°Р·СѓСЏ РµРіРѕ РІ С‡РµС‚С‹СЂС‘С…РјРµСЂРЅС‹Р№
         transform.rotation = Quaternion.Euler(rotation);
 
 
-        // Получем вертикальное движение мыши
+        // РџРѕР»СѓС‡РµРј РІРµСЂС‚РёРєР°Р»СЊРЅРѕРµ РґРІРёР¶РµРЅРёРµ РјС‹С€Рё
         float mouseY = Input.GetAxis("Mouse Y");
         Vector3 cameraRotation = playerCamera.rotation.eulerAngles;
         cameraRotation.x += mouseY * -rotationSpeed;
@@ -46,16 +46,16 @@ public class PlayerMove : MonoBehaviour
 
 
 
-        // Получаем горизонтальный и вертикальный ввод пользователя
-        float vert = Input.GetAxis("Vertical"); // W или S
-        float hor = Input.GetAxis("Horizontal"); // A или D
+        // РџРѕР»СѓС‡Р°РµРј РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Р№ Рё РІРµСЂС‚РёРєР°Р»СЊРЅС‹Р№ РІРІРѕРґ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+        float vert = Input.GetAxis("Vertical"); // W РёР»Рё S
+        float hor = Input.GetAxis("Horizontal"); // A РёР»Рё D
 
-        // Получаем направление перед игроком
+        // РџРѕР»СѓС‡Р°РµРј РЅР°РїСЂР°РІР»РµРЅРёРµ РїРµСЂРµРґ РёРіСЂРѕРєРѕРј
         Vector3 forward = transform.forward * vert;
-        // Направление справа от игрока
+        // РќР°РїСЂР°РІР»РµРЅРёРµ СЃРїСЂР°РІР° РѕС‚ РёРіСЂРѕРєР°
         Vector3 right = transform.right * hor;
 
-        // Для физического объекта присваиваем новые скорости
+        // Р”Р»СЏ С„РёР·РёС‡РµСЃРєРѕРіРѕ РѕР±СЉРµРєС‚Р° РїСЂРёСЃРІР°РёРІР°РµРј РЅРѕРІС‹Рµ СЃРєРѕСЂРѕСЃС‚Рё
         rb.velocity = (forward + right) * moveSpeed;
     }
 }
