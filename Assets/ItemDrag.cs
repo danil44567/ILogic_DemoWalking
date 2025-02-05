@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemDrag : MonoBehaviour
 {
@@ -9,9 +9,10 @@ public class ItemDrag : MonoBehaviour
 
     void Update()
     {
-        // ���� ������������
+        // Клик пользователя
         if (Input.GetMouseButtonDown(0))
         {
+            // Если уже что-то переносим
             if (isDrag)
             {
                 isDrag = false;
