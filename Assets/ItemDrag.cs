@@ -9,6 +9,7 @@ public class ItemDrag : MonoBehaviour
 
     void Update()
     {
+        // Клик пользователя
         if (Input.GetMouseButtonDown(0))
         {
             if (isDrag)
