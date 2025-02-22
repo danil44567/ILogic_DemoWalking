@@ -8,16 +8,37 @@ public class PlayerStats : MonoBehaviour
     // Указание на изображение в котором отображаем голод
     [SerializeField] private Image hungryImage;
 
+    // Указание на изображение в котором отображаем здоровье
+    [SerializeField] private Image healthImage;
+
+    // Указание на объект который будем отображать, что игрок очень голоден
+    [SerializeField] private GameObject veryHungryText;
+
+    // Указание на объект который будем отображать, когда у игрока закончилось здоровье
+    [SerializeField] private GameObject deadScreen;
+
     // Текущий голод игрока
     private float hungry;
 
+    // Текущее здоровье игрока
+    private float health;
+
     // Начальный голод игрока (значение нужно для того, чтобы знать какой голод у нас был начальный)
-    private float startHungry = 100;
+    private float startHungry = 10;
+    
+    // Начальное здоровье игрока
+    private float startHealth = 100;
+
+
+    // Переменная нужная для таймера ударов по игроку с определённым интервалом
+    private float healthDamageTimer;
 
     void Start()
     {
         // Во время запуса игры в текущий голод игрока устанавливаем начальное значение
         hungry = startHungry;
+
+        health = startHealth;
     }
 
     void Update()
@@ -29,6 +50,42 @@ public class PlayerStats : MonoBehaviour
         // Разделив текущие значение на максимальное мы по сути
         // получаем количество процентов текущего голода в формате от 0 до 1
         // где 1 = 100%, а 0 = 0%
-        hungryImage.fillAmount = hungry / startHungry;
+        float hungryPercent = hungry / startHungry;
+
+        // Устанавливаем процент голода в fillAmount для отображения
+        hungryImage.fillAmount = hungryPercent;
+
+        // Если голод ниже 10%, то отображаем что игрок очень голоден
+        if (hungryPercent < 0.1f) {
+            veryHungryText.SetActive(true);
+        }
+
+
+        // Если голод упал ниже 0
+        if (hungry <= 0)
+        {
+            // Добавлем в таймер значение
+            healthDamageTimer += Time.deltaTime;
+
+            // Если значение таймера больше 5 секунд
+            if (healthDamageTimer > 5)
+            {
+                // Снимаем игроку 10 здоровья
+                health -= 10;
+                // Сбрасываем таймер на 0 секунд
+                healthDamageTimer = 0;
+            }
+        }
+
+        // Если здоровье упало ниже 0
+        if (health <= 0)
+        {
+            // Показываем игроку, что здоровья больше нет
+            deadScreen.SetActive(true);
+        }
+
+        // Устананавлваем текущий процент здоровья (анлогично голоду)
+        healthImage.fillAmount = health / startHealth;
+
     }
 }

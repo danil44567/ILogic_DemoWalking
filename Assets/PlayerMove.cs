@@ -100,8 +100,8 @@ public class PlayerMove : MonoBehaviour
             */
             if (Physics.Raycast(ray, out RaycastHit hit, groundDistance, groundMask))
             {
-                // Прменяемый силу в 100 единиц направленную вверх (Vector3.up)
-                rb.AddForce(Vector3.up * 100);
+                // Прменяемый силу в 200 единиц направленную вверх (Vector3.up)
+                rb.AddForce(Vector3.up * 200);
             }
         }
     }
