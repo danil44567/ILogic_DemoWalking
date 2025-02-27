@@ -14,6 +14,9 @@ public class ItemDrag : MonoBehaviour
     // Переменная для сохранения объекта который мы перетаскиваем
     private Transform dragTransform;
 
+    // Ссылка на PlayerStats у нашего игрока (нужно указать ссылку в инспекторе)
+    [SerializeField] private PlayerStats playerStats;
+
     void Update()
     {
         // Если был клик пользователя в текущем кадре
@@ -65,6 +68,26 @@ public class ItemDrag : MonoBehaviour
             Vector3 newPos = transform.position + (transform.forward * pickDistance);
             // Присваиваем новой позицию объекту, который мы перетаскивали
             dragTransform.position = newPos;
+
+            // Если во время перетаскивания нажата ПКМ (см. код выше и условие в котором мы находимся)
+            if (Input.GetMouseButtonDown(1))
+            {
+                // Если перетаскиваемый объект имеет компонент Food (является съедобным)
+                // Получаем в перемнной food компонент "еды" текущего объека
+                if (dragTransform.TryGetComponent(out Food food))
+                {
+                    // Перестаём нести придмет
+                    isDrag = false;
+
+                    // Обращаемся в скрипт PlayerStats и восстанавливаем игроку голод,
+                    // Вызвав метод AddHungry и передём в скобках аргумент с значением сытости нашей еды
+                    playerStats.AddHugry(food.satiety);
+
+                    // Уничтожаем перетаскиваемый объект (Ну мы же его съели)
+                    Destroy(dragTransform.gameObject);
+                }
+            }
+
         }
     }
 }
