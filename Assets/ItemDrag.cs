@@ -8,6 +8,8 @@ public class ItemDrag : MonoBehaviour
     // Расстояние с которого мы можем брать объекты
     [SerializeField] private float pickDistance = 3;
 
+    private float currentPick;
+
     // Флаг нужны для указания есть ли в данный момент перетаскиваемый объект
     private bool isDrag;
 
@@ -52,6 +54,8 @@ public class ItemDrag : MonoBehaviour
                     isDrag = true;
                     // Сохраняем объект в который мы попали лучом, чтобы в дальнейшем расчитать его перетаскивание
                     dragTransform = hit.transform;
+
+                    currentPick = hit.distance;
                 }
             }
         }
@@ -59,13 +63,20 @@ public class ItemDrag : MonoBehaviour
         // Если мы перетаскиваем предмет
         if (isDrag)
         {
+
+
+
+            float wheel = Input.GetAxis("Mouse ScrollWheel");
+            currentPick += wheel;
+            currentPick = Mathf.Clamp(currentPick, 1, pickDistance);
+
             /*
              * Создание новой позиции перетаскиваемого объекта
              * transform.position - Текущая позиция игрока
              * (transform.forward * pickDistance) - Направление перед игроком на дистанции pickDistance
              * newPos - Общий результат, точка прямо перед игроком на указанной дистанции
              */
-            Vector3 newPos = transform.position + (transform.forward * pickDistance);
+            Vector3 newPos = transform.position + (transform.forward * currentPick);
             // Присваиваем новой позицию объекту, который мы перетаскивали
             dragTransform.position = newPos;
 

@@ -106,4 +106,9 @@ public class PlayerStats : MonoBehaviour
             hungry = startHungry;
         }
     }
+
+    public void Damage(float damage)
+    {
+        health -= damage;
+    }
 }

@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 540416664}
   - component: {fileID: 540416668}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb157e8326310f04e89f362e9fb21104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1995761723}
 --- !u!1 &570672271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,6 +2309,7 @@ GameObject:
   - component: {fileID: 1995761721}
   - component: {fileID: 1995761720}
   - component: {fileID: 1995761724}
+  - component: {fileID: 1995761727}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -2466,6 +2468,25 @@ MonoBehaviour:
   healthImage: {fileID: 1652300363}
   veryHungryText: {fileID: 1057129032}
   deadScreen: {fileID: 2000786577}
+--- !u!114 &1995761727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995761719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &2000786577
 GameObject:
   m_ObjectHideFlags: 0
