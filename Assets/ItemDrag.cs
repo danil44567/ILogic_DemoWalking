@@ -19,6 +19,8 @@ public class ItemDrag : MonoBehaviour
     // Ссылка на PlayerStats у нашего игрока (нужно указать ссылку в инспекторе)
     [SerializeField] private PlayerStats playerStats;
 
+    [SerializeField] private Inventory inventory;
+
     void Update()
     {
         // Если был клик пользователя в текущем кадре
@@ -60,12 +62,23 @@ public class ItemDrag : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ray ray = new Ray(transform.position, transform.forward);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, pickDistance))
+            {
+                if (hit.transform.TryGetComponent(out DoorButton btn))
+                {
+                    btn.Activate();
+                }
+            }
+
+        }
+
         // Если мы перетаскиваем предмет
         if (isDrag)
         {
-
-
-
             float wheel = Input.GetAxis("Mouse ScrollWheel");
             currentPick += wheel;
             currentPick = Mathf.Clamp(currentPick, 1, pickDistance);
@@ -99,6 +112,25 @@ public class ItemDrag : MonoBehaviour
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                inventory.AddItem(dragTransform.gameObject);
+
+                // Перестаём нести придмет
+                isDrag = false;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GameObject item = inventory.GetItem();
+                if (item != null)
+                {
+                    dragTransform = item.transform;
+                    isDrag = true;
+                }
+            }
         }
     }
 }
